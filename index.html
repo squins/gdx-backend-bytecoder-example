@@ -5,14 +5,7 @@
     <meta http-equiv="Cache-Control" content="no-store, must-revalidate"/>
     <title>Bytecoder LibGDX example application</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <style>
-        body {
-            margin: 0px;
-            overflow: hidden;
-        }
-
-
-    </style>
+    <link rel="stylesheet" href="style.css">
     <script src="main.js"></script>
 </head>
 
@@ -48,105 +41,29 @@
         }, gcInterval);
         bytecoder.exports.main(0);
     };
-
     function startApp(){
-        registerFakeImports();
-
+        canvas1.hidden = false
         WebAssembly.instantiateStreaming(fetch('main.wasm'), bytecoder.imports)
             .catch(errorred)
             .then(instantiated);
     }
-
-    /**
-     * Registers fake imports, to prevent crash on start.
-     * @Coen: probably not needed now anymore, as we filter out the cards in the Shader plugin
-     */
-    function registerFakeImports() {
-        // bytecoder.imports["bufferutils"] = {
-        //     "newDisposableByteBufferINT": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "freeMemoryByteBuffer": function () {
-        //         console.log("FAKE function freeMemoryByteBuffer called");
-        //     }
-        // };
-        // bytecoder.imports["gdx2dpixmap"] = {
-        //     "etc1": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "clearLONGINT": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "setBlendLONGINT": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "drawPixmapLONGLONGINTINTINTINTINTINTINTINT": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "freeLONG": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "newPixmapL1LONGINTINTINT": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "loadL1LONGL1BYTEINTINT": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "getFailureReason": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     }
-        // };
-        // bytecoder.imports["etc1"] = {
-        //     "etc1": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     }
-        // };
-        // bytecoder.imports["crc32"] = {
-        //     "etc1": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     }
-        // };
-        // bytecoder.imports["unixfilesystem"] = {
-        //     "getLength0String": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "getBooleanAttributes0String": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     }
-        // };
-        // bytecoder.imports["inflater"] = {
-        //     "resetLONG": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "initBOOLEAN": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "inflateBytesBytesLONGL1BYTEINTINTL1BYTEINTINT": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "inflateBufferBytesLONGLONGINTL1BYTEINTINT": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "endLONG": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "clearLONGINT": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     },
-        //     "initIDs": function () {
-        //         console.log("FAKE function newDisposableByteBufferINT called");
-        //     }
-        // };
-    }
-
-
 </script>
-<div id="app"/>
-<canvas id="canvas1" width="640" height="480" style="border: 2px solid green;"></canvas>
-<button onclick="startApp()">Play</button>
 
+<div id="app">
+    <div id="wrapper">
+        <div id="left">
+            <h1>Click the button to see the bytecoder-libgdx-kotlin example</h1>
+            <button class="button" onclick="startApp()">Play sample bytecoder-libgdx</button>
+        </div>
+        <div id="right">
+            <canvas id="canvas1" width="640" height="480" style="border: 2px solid green;"></canvas>
+        </div>
+    </div>
+</div>
 <script>
     let canvas1 = document.getElementById("canvas1");
+    canvas1.hidden = true
+
     canvas1.audio = function(url) {
         console.log(`Play: ${url}`);
         return new Audio(url);
