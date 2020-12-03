@@ -46,6 +46,8 @@
         WebAssembly.instantiateStreaming(fetch('main.wasm'), bytecoder.imports)
             .catch(errorred)
             .then(instantiated);
+        document.getElementById("button-start").disabled = true
+        document.getElementById("button-start").style.visibility = "hidden"
     }
 </script>
 
@@ -57,7 +59,7 @@
     <div id="wrapper">
         <div id="left">
             <h1>Click the button to see the bytecoder-libgdx-kotlin example</h1>
-            <button class="button" onclick="startApp()">Play sample bytecoder-libgdx</button>
+            <button id="button-start" class="button" onclick="startApp()">Play sample bytecoder-libgdx</button>
         </div>
         <div id="right">
             <canvas id="canvas1" width="640" height="480" style="border: 2px solid green;"></canvas>
